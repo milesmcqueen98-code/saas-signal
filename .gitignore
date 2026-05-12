@@ -1,0 +1,6 @@
+.env*.local
+.next
+.corepack
+.npm-cache
+node_modules
+pnpm-debug.log
