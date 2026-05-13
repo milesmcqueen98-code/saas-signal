@@ -49,11 +49,19 @@ const useSeeds = [
 ] as const satisfies readonly UseSeed[];
 
 const categoryDescriptions: Record<string, string> = {
-  "ai-tools": "Sharper picks for teams that need AI to save time without creating cleanup work.",
-  crm: "CRM reports for teams that want cleaner pipelines, fewer handoffs, and better follow-up.",
-  analytics: "Analytics coverage for teams that need fast answers, not another dashboard graveyard.",
-  automation: "Workflow reports for operators who want fewer manual steps and fewer broken handoffs.",
-  "customer-support": "Support software coverage for teams that want faster replies and calmer queues."
+  "ai-tools": "AI tools are cheap to try and easy to regret. These reports call out what is worth testing.",
+  crm: "CRM coverage for teams that need fewer lost deals, not another database for stale notes.",
+  analytics: "Analytics reports for teams that need cleaner decisions, not a dashboard nobody opens.",
+  automation: "Workflow coverage for operators who want fewer manual steps and fewer mystery failures.",
+  "customer-support": "Support software coverage for teams that want faster replies without burning out agents."
+};
+
+const categoryWarnings: Record<string, string> = {
+  "ai-tools": "Do not buy the tool that writes the flashiest paragraph. Buy the one your team can review without babysitting it.",
+  crm: "Do not let a CRM demo turn into theater. The right pick is the one reps will update after a bad Tuesday.",
+  analytics: "Do not buy analytics until the team agrees on the events. A prettier chart will not save dirty tracking.",
+  automation: "Do not automate a messy process. You will only make the mess run faster and break quietly.",
+  "customer-support": "Do not buy the support suite with the longest feature list. Buy the one that keeps the queue calm."
 };
 
 function pick(seed: readonly string[], index: number): string {
@@ -64,17 +72,25 @@ function audienceFor(useSeed: UseSeed): string {
   return useSeed.name.replace(/^CRM For /, "").replace(/^For /, "");
 }
 
+function sentenceAudienceFor(useSeed: UseSeed): string {
+  return audienceFor(useSeed)
+    .toLowerCase()
+    .replaceAll("saas", "SaaS")
+    .replaceAll("crm", "CRM")
+    .replaceAll("hr", "HR");
+}
+
 function titleFor(category: CategorySeed, useSeed: UseSeed, index: number): string {
-  const angle = ["Shortlist", "ROI Guide", "Stack Review", "Buying Map", "Field Test"][index % 5] ?? "Guide";
-  return `${category.name} ${useSeed.name}: ${angle} for 2026`;
+  const angle = ["What I Would Buy", "The Honest Shortlist", "The No-Nonsense Pick", "What To Skip First", "The Field Call"][index % 5] ?? "The Honest Pick";
+  return `${category.name} ${useSeed.name}: ${angle}`;
 }
 
 function descriptionFor(category: CategorySeed, useSeed: UseSeed, index: number): string {
   const productA = pick(category.products, index);
   const productB = pick(category.products, index + 3);
-  const saved = 7 + (index % 9) * 2;
-  const audience = audienceFor(useSeed).toLowerCase();
-  return `${audience} get a clear read on ${productA}, ${productB}, setup effort, cost fit, and a ${saved}-hour monthly payback case.`;
+  const audience = audienceFor(useSeed);
+  const warning = categoryWarnings[category.slug] ?? "Do not buy the loudest demo. Buy the tool that survives the first boring week.";
+  return `${audience}: compare ${productA} and ${productB}, see what I would try first, and avoid the common bad buy. ${warning}`;
 }
 
 function summaryFor(category: CategorySeed, useSeed: UseSeed, index: number): string {
@@ -82,9 +98,8 @@ function summaryFor(category: CategorySeed, useSeed: UseSeed, index: number): st
   const productB = pick(category.products, index + 2);
   const productC = pick(category.products, index + 5);
   const saved = 8 + ((index * 3) % 17);
-  const lift = 11 + ((index * 5) % 19);
   const budget = 260 + ((index * 73) % 940);
-  return `The work is clear: ${useSeed.pain}. For ${audienceFor(useSeed)}, ${productA}, ${productB}, and ${productC} make the first cut. The test is ${useSeed.metric}. Expect about ${saved} hours back, a ${lift} percent operating lift, and a monthly budget near $${budget} before add-ons.`;
+  return `If you are buying for ${sentenceAudienceFor(useSeed)}, do not buy ${category.name.toLowerCase()} because the demo looked smooth. Buy it because it fixes ${useSeed.pain}. I would start with ${productA}, keep ${productB} honest, and test ${productC} cheaply. The real score is ${useSeed.metric}: about ${saved} hours back under a $${budget} monthly ceiling.`;
 }
 
 function comparisonRowsFor(category: CategorySeed, useSeed: UseSeed, index: number): readonly [ComparisonRow, ComparisonRow, ComparisonRow] {
@@ -95,9 +110,9 @@ function comparisonRowsFor(category: CategorySeed, useSeed: UseSeed, index: numb
   const fieldB = pick(category.fields, index + 1);
   const fieldC = pick(category.fields, index + 2);
   return [
-    { dimension: fieldA, optionA: `${productA} fits teams needing ${pick(category.verbs, index)} support with ${12 + (index % 8)} tracked steps.`, optionB: `${productB} works best when ${useSeed.metric} is reviewed weekly across ${3 + (index % 4)} roles.`, optionC: `${productC} is strongest for lean rollout with a ${5 + (index % 6)} day setup window.` },
-    { dimension: fieldB, optionA: `${productA} keeps admin effort near ${2 + (index % 5)} hours each month after launch.`, optionB: `${productB} trades setup depth for cleaner handoffs on ${7 + (index % 9)} recurring tasks.`, optionC: `${productC} suits teams that prize reporting clarity over advanced customization.` },
-    { dimension: fieldC, optionA: `${productA} has the best fit below $${240 + index * 11} in monthly spend.`, optionB: `${productB} earns its cost when volume passes ${90 + index * 7} records or tickets.`, optionC: `${productC} is the safer pick for teams testing adoption before a wider rollout.` }
+    { dimension: fieldA, optionA: `${productA} is my first demo if one owner can ${pick(category.verbs, index)} the work and keep the setup under ${12 + (index % 8)} steps.`, optionB: `${productB} is the grown-up choice when ${useSeed.metric} gets reviewed every week, not once before renewal.`, optionC: `${productC} is the scrappy test: useful if the team needs proof inside ${5 + (index % 6)} working days.` },
+    { dimension: fieldB, optionA: `${productA} wins if admin time stays near ${2 + (index % 5)} hours a month. Past that, the tool is owning you.`, optionB: `${productB} is worth the heavier setup only if it clears ${7 + (index % 9)} recurring handoffs that annoy the team today.`, optionC: `${productC} is better for people who want a clean read before they start asking for custom fields and committees.` },
+    { dimension: fieldC, optionA: `${productA} is the budget line I would defend below $${240 + index * 11} a month. Above that, prove payback first.`, optionB: `${productB} earns the seat only after volume passes ${90 + index * 7} records or tickets. Small teams should wait.`, optionC: `${productC} is the safer pick when adoption is still the question and nobody wants a six-month rollout.` }
   ];
 }
 
@@ -115,7 +130,7 @@ function faqsFor(category: CategorySeed, useSeed: UseSeed, index: number): reado
   const productA = pick(category.products, index);
   const productB = pick(category.products, index + 2);
   const productC = pick(category.products, index + 5);
-  return [`${productA} is the strongest first trial when ${useSeed.metric} is the main goal.`, `${productB} is worth piloting when the team needs deeper ${pick(category.fields, index + 1)} checks.`, `${productC} fits a smaller rollout because setup can stay within ${5 + (index % 6)} working days.`];
+  return [`Try ${productA} first when ${useSeed.metric} is the number everyone already cares about.`, `Do not pilot ${productB} unless someone owns ${pick(category.fields, index + 1)} after launch.`, `Use ${productC} for a smaller test when setup needs to stay inside ${5 + (index % 6)} working days.`];
 }
 
 function buildRows(): DirectoryRow[] {
@@ -127,7 +142,7 @@ function buildRows(): DirectoryRow[] {
       const useCaseName = category.slug === "ai-tools" && useIndex === 0 ? "CRM For Real Estate Agents" : baseUse.name;
       const rowUse: UseSeed = { ...baseUse, slug: useCaseSlug, name: useCaseName };
       const canonicalPath = category.slug === "ai-tools" && useIndex === 0 ? "/ai-tools/crm/for-real-estate-agents" : `/${category.slug}/${useCaseSlug}`;
-      return { id: `${category.slug}-${useCaseSlug}`, categorySlug: category.slug, categoryName: category.name, useCaseSlug, useCaseName, pageType, title: titleFor(category, rowUse, index), description: descriptionFor(category, rowUse, index), canonicalPath, ogTitle: `${category.name} Guide ${useCaseName}`, ogDescription: `Compare practical ${category.name.toLowerCase()} choices for ${useCaseName.toLowerCase()} with benchmarks, tradeoffs, and a live calculator.`, summary: summaryFor(category, rowUse, index), optionLabels: [pick(category.products, index), pick(category.products, index + 2), pick(category.products, index + 5)], comparisonRows: comparisonRowsFor(category, rowUse, index), calculatorConfig: calculatorConfigFor(pageType, index), faqs: faqsFor(category, rowUse, index) };
+      return { id: `${category.slug}-${useCaseSlug}`, categorySlug: category.slug, categoryName: category.name, useCaseSlug, useCaseName, pageType, title: titleFor(category, rowUse, index), description: descriptionFor(category, rowUse, index), canonicalPath, ogTitle: `${category.name} Guide ${useCaseName}`, ogDescription: `A plainspoken ${category.name.toLowerCase()} read for ${sentenceAudienceFor(rowUse)} with the first tool to try, the one to question, and the buyer mistake to avoid.`, summary: summaryFor(category, rowUse, index), optionLabels: [pick(category.products, index), pick(category.products, index + 2), pick(category.products, index + 5)], comparisonRows: comparisonRowsFor(category, rowUse, index), calculatorConfig: calculatorConfigFor(pageType, index), faqs: faqsFor(category, rowUse, index) };
     })
   );
 }

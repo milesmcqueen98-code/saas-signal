@@ -5,6 +5,7 @@ import { Byline } from "../../../components/byline";
 import { Calculator } from "../../../components/calculator";
 import { ComparisonTable } from "../../../components/comparison-table";
 import { EditorialDisclosure } from "../../../components/editorial-disclosure";
+import { EditorialTake } from "../../../components/editorial-take";
 import { QuickAnswer } from "../../../components/quick-answer";
 import { RelatedReports } from "../../../components/related-reports";
 import { Schema } from "../../../components/schema";
@@ -62,9 +63,9 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
   const siteUrl = getSiteUrl();
   const [firstOption, secondOption, thirdOption] = row.optionLabels;
   const reportSignals = [
-    { label: "First look", value: firstOption, className: "bg-teal-100 text-teal-950" },
-    { label: "Counterpoint", value: secondOption, className: "bg-amber-100 text-amber-950" },
-    { label: "Lean test", value: thirdOption, className: "bg-rose-100 text-rose-950" }
+    { label: "Try first", value: firstOption, className: "bg-teal-100 text-teal-950" },
+    { label: "Make it prove it", value: secondOption, className: "bg-amber-100 text-amber-950" },
+    { label: "Cheap test", value: thirdOption, className: "bg-rose-100 text-rose-950" }
   ];
   return (
     <main>
@@ -85,6 +86,7 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[minmax(0,1fr)_340px]">
         <article className="space-y-8">
           <QuickAnswer summary={row.summary} />
+          <EditorialTake row={row} />
           <section className="grid gap-3 md:grid-cols-3">
             {reportSignals.map((item) => (
               <div key={item.label} className={`rounded-[1.25rem] p-5 ${item.className}`}>
@@ -100,7 +102,7 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
           <Card className="rounded-[1.5rem] border-slate-200 bg-white shadow-sm">
             <CardHeader>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-teal-700">Notes</p>
-              <CardTitle className="text-3xl">What to check before you buy.</CardTitle>
+              <CardTitle className="text-3xl">Questions I would ask before paying.</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-4 text-base leading-8 text-slate-700">
               {row.faqs.map((item) => (
@@ -119,7 +121,7 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
               <CardTitle>Buy on evidence.</CardTitle>
             </CardHeader>
             <CardContent className="text-sm leading-7 text-slate-600">
-              Miles McQueen tracks price, setup risk, payback, and fit. The goal is not a longer list. It is a better first call.
+              Miles McQueen writes these pages like a buyer, not a vendor. Price matters. Setup risk matters. A tool that nobody opens after week two is not a win.
             </CardContent>
           </Card>
         </aside>

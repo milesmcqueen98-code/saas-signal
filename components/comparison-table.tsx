@@ -11,10 +11,10 @@ export function ComparisonTable({ row }: ComparisonTableProps) {
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-teal-700">Side by side</p>
           <h2 id="comparison-heading" className="mt-2 text-3xl font-semibold tracking-normal text-slate-950">
-            What changes the decision.
+            What I would test in the demo.
           </h2>
         </div>
-        <p className="max-w-sm text-sm leading-6 text-slate-500">Three tools. Three tradeoffs. No maze.</p>
+        <p className="max-w-sm text-sm leading-6 text-slate-500">Do not let the vendor drive. Bring these questions and make the tool answer them.</p>
       </div>
       <Table>
         <TableHeader>

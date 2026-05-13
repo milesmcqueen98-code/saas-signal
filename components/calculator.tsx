@@ -20,7 +20,7 @@ export function Calculator({ config }: CalculatorProps) {
     <section className="grid overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-950 shadow-xl shadow-slate-950/10 lg:grid-cols-[1fr_320px]">
       <div className="p-6 sm:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-teal-300">Payback check</p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-normal text-white">Change the inputs. See the answer.</h2>
+        <h2 className="mt-3 text-3xl font-semibold tracking-normal text-white">Run the math before the salesperson does.</h2>
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           {config.inputs.map((input) => (
             <div key={input.key} className="grid gap-2">
@@ -52,7 +52,7 @@ export function Calculator({ config }: CalculatorProps) {
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">{config.outputLabel}</p>
           <p className="mt-4 text-5xl font-semibold tracking-normal text-slate-950">{formatCalculatorOutput(config.formula, result)}</p>
         </div>
-        <p className="mt-8 text-sm leading-6 text-slate-600">A fast gut check. Strong enough for a shortlist. Not a substitute for procurement.</p>
+        <p className="mt-8 text-sm leading-6 text-slate-600">A quick sanity check. If the number looks weak here, the real deal will not get kinder.</p>
       </div>
     </section>
   );
