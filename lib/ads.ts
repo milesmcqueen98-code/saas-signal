@@ -93,7 +93,7 @@ export function renderAdSlot(config: AdSlotConfig): ReactElement {
     "a",
     {
       className:
-        "flex w-full flex-col justify-between rounded-md border border-slate-300 bg-white p-5 text-left text-sm text-slate-700 shadow-sm transition-colors hover:border-teal-500",
+        "flex w-full flex-col justify-between rounded-[1.5rem] border border-slate-200 bg-white p-6 text-left text-sm text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:border-teal-500 hover:shadow-xl hover:shadow-slate-950/10",
       href: config.campaign.href,
       style: { minHeight: config.height },
       "data-slot-id": config.slotId,
@@ -101,14 +101,14 @@ export function renderAdSlot(config: AdSlotConfig): ReactElement {
     },
     createElement(
       "span",
-      { className: "text-xs font-semibold uppercase tracking-wider text-teal-700" },
+      { className: "text-xs font-semibold uppercase tracking-[0.24em] text-teal-700" },
       config.campaign.kicker
     ),
-    createElement("strong", { className: "mt-3 block text-xl font-semibold leading-7 text-slate-950" }, config.campaign.title),
-    createElement("span", { className: "mt-3 block leading-6 text-slate-600" }, config.campaign.deck),
+    createElement("strong", { className: "mt-4 block text-2xl font-semibold leading-8 tracking-normal text-slate-950" }, config.campaign.title),
+    createElement("span", { className: "mt-4 block leading-7 text-slate-600" }, config.campaign.deck),
     createElement(
       "span",
-      { className: "mt-5 flex items-center justify-between border-t border-slate-200 pt-4 text-xs text-slate-500" },
+      { className: "mt-6 flex items-center justify-between border-t border-slate-200 pt-4 text-xs text-slate-500" },
       createElement("span", null, `${config.slotId} - ${config.width}x${config.height}`),
       createElement("span", { className: "font-semibold text-teal-700" }, config.campaign.ctaLabel)
     )

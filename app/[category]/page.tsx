@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Byline } from "../../components/byline";
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
 import { getCategories, getCategoryRows, getRows } from "../../lib/data";
 
 export const revalidate = 86400;
@@ -41,31 +40,42 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   }
   return (
     <main>
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-10">
-          <p className="text-sm font-semibold uppercase tracking-wider text-teal-700">Coverage desk</p>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-normal text-slate-950">{category.name}</h1>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">{category.description}</p>
-          <div className="mt-5">
-            <Byline context={`${category.count} buyer reports in this desk`} />
+      <section className="surface-glow border-b border-slate-200">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-20">
+          <div className="fade-up max-w-4xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-teal-700">Coverage desk</p>
+            <h1 className="mt-5 font-editorial text-6xl font-semibold leading-[0.95] tracking-normal text-slate-950 sm:text-7xl">
+              {category.name}
+            </h1>
+            <p className="mt-6 max-w-2xl text-xl leading-9 text-slate-600">{category.description}</p>
+            <div className="mt-6">
+              <Byline context={`${category.count} reports`} />
+            </div>
           </div>
         </div>
       </section>
-      <section className="mx-auto grid max-w-6xl gap-4 px-4 py-10 md:grid-cols-2">
-        {rows.map((row) => (
-          <Link key={row.id} href={row.canonicalPath}>
-            <Card className="h-full border-slate-200 bg-white transition-colors hover:border-teal-400">
-              <CardHeader>
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">{row.pageType}</p>
-                <CardTitle>{row.useCaseName}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 text-sm leading-6 text-slate-600">
-                <p>{row.description}</p>
-                <p className="font-semibold text-slate-950">Reported by Miles McQueen</p>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
+      <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
+        <div className="grid gap-3">
+          {rows.map((row, index) => (
+            <Link
+              key={row.id}
+              href={row.canonicalPath}
+              className="premium-card group grid rounded-[1.5rem] border border-slate-200 bg-white p-5 md:grid-cols-[80px_1fr_auto] md:items-center md:p-6"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">{String(index + 1).padStart(2, "0")}</p>
+              <div className="mt-4 md:mt-0">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-teal-700">{row.pageType}</p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-normal text-slate-950 transition group-hover:text-teal-700">
+                  {row.useCaseName}
+                </h2>
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">{row.description}</p>
+              </div>
+              <span className="mt-4 text-sm font-semibold text-slate-950 transition group-hover:translate-x-1 group-hover:text-teal-700 md:mt-0">
+                Open report
+              </span>
+            </Link>
+          ))}
+        </div>
       </section>
     </main>
   );

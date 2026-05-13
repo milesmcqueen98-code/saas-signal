@@ -49,11 +49,11 @@ const useSeeds = [
 ] as const satisfies readonly UseSeed[];
 
 const categoryDescriptions: Record<string, string> = {
-  "ai-tools": "Reporting on AI products that promise faster writing, research, meetings, and internal knowledge work.",
-  crm: "Coverage of CRM systems where sales teams weigh pipeline control, adoption risk, and cost discipline.",
-  analytics: "Field notes on analytics platforms that turn product, revenue, and customer data into decisions.",
-  automation: "Coverage of workflow platforms used to remove manual handoffs without losing operational control.",
-  "customer-support": "Reporting on support platforms that shape ticket queues, help centers, bots, and service quality."
+  "ai-tools": "Sharper picks for teams that need AI to save time without creating cleanup work.",
+  crm: "CRM reports for teams that want cleaner pipelines, fewer handoffs, and better follow-up.",
+  analytics: "Analytics coverage for teams that need fast answers, not another dashboard graveyard.",
+  automation: "Workflow reports for operators who want fewer manual steps and fewer broken handoffs.",
+  "customer-support": "Support software coverage for teams that want faster replies and calmer queues."
 };
 
 function pick(seed: readonly string[], index: number): string {
@@ -70,7 +70,7 @@ function descriptionFor(category: CategorySeed, useSeed: UseSeed, index: number)
   const productB = pick(category.products, index + 3);
   const saved = 7 + (index % 9) * 2;
   const audience = useSeed.name.replace("For ", "").toLowerCase();
-  return `Miles McQueen reports on ${category.name.toLowerCase()} options for ${audience}, with ${productA}, ${productB}, rollout effort, cost fit, and a ${saved}-hour monthly improvement model in focus.`;
+  return `${audience} get a clear read on ${productA}, ${productB}, setup effort, cost fit, and a ${saved}-hour monthly payback case.`;
 }
 
 function summaryFor(category: CategorySeed, useSeed: UseSeed, index: number): string {
@@ -80,7 +80,7 @@ function summaryFor(category: CategorySeed, useSeed: UseSeed, index: number): st
   const saved = 8 + ((index * 3) % 17);
   const lift = 11 + ((index * 5) % 19);
   const budget = 260 + ((index * 73) % 940);
-  return `After reviewing the workflow around ${useSeed.pain}, the strongest ${category.name.toLowerCase()} shortlist for ${useSeed.name.replace("For ", "")} centers on ${productA}, ${productB}, and ${productC}. The deciding issue is ${useSeed.metric}: teams should expect about ${saved} hours returned, a ${lift} percent operating lift, and a monthly budget near $${budget} before add-ons.`;
+  return `The work is clear: ${useSeed.pain}. For ${useSeed.name.replace("For ", "")}, ${productA}, ${productB}, and ${productC} make the first cut. The test is ${useSeed.metric}. Expect about ${saved} hours back, a ${lift} percent operating lift, and a monthly budget near $${budget} before add-ons.`;
 }
 
 function comparisonRowsFor(category: CategorySeed, useSeed: UseSeed, index: number): readonly [ComparisonRow, ComparisonRow, ComparisonRow] {

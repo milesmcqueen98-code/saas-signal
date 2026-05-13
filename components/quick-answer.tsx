@@ -1,5 +1,10 @@
 type QuickAnswerProps = { summary: string };
 
 export function QuickAnswer({ summary }: QuickAnswerProps) {
-  return <div role="region" aria-label="Quick answer" className="rounded-lg border border-emerald-200 bg-emerald-50 p-5"><p className="text-xs font-semibold uppercase tracking-wider text-emerald-700">Quick Answer</p><p className="mt-2 text-base leading-7 text-slate-800">{summary}</p></div>;
+  return (
+    <div role="region" aria-label="Quick answer" className="rounded-[1.5rem] border border-teal-200 bg-teal-50 p-6 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-teal-700">The read</p>
+      <p className="mt-4 max-w-4xl text-xl leading-9 text-slate-900">{summary}</p>
+    </div>
+  );
 }

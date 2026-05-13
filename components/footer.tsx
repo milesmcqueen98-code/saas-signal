@@ -3,10 +3,10 @@ import Link from "next/link";
 export function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-white">
-      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 text-sm text-slate-600 md:grid-cols-[1fr_auto]">
+      <div className="mx-auto grid max-w-7xl gap-6 px-5 py-10 text-sm text-slate-600 sm:px-8 md:grid-cols-[1fr_auto]">
         <div className="space-y-2">
           <p className="font-semibold text-slate-950">SaaS Signal</p>
-          <p>Independent software reporting, comparisons, and buyer calculators by Miles McQueen.</p>
+          <p>Reports, tables, and payback checks by Miles McQueen.</p>
         </div>
         <div className="flex flex-wrap gap-4">
           <Link href="/about" className="hover:text-slate-950">

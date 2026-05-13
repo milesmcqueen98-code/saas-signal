@@ -15,15 +15,15 @@ export const revalidate = 86400;
 
 const HeaderBannerAd = dynamic(() => import("../../../components/ad-unit").then((module) => module.HeaderBannerAd), {
   ssr: false,
-  loading: () => <div className="w-full rounded-md bg-slate-100" style={{ minHeight: AD_SLOT_DIMENSIONS["header-banner"].height }} />
+  loading: () => <div className="w-full rounded-[1.5rem] bg-slate-100" style={{ minHeight: AD_SLOT_DIMENSIONS["header-banner"].height }} />
 });
 const SidebarStickyAd = dynamic(() => import("../../../components/ad-unit").then((module) => module.SidebarStickyAd), {
   ssr: false,
-  loading: () => <div className="w-full rounded-md bg-slate-100" style={{ minHeight: AD_SLOT_DIMENSIONS["sidebar-sticky"].height }} />
+  loading: () => <div className="w-full rounded-[1.5rem] bg-slate-100" style={{ minHeight: AD_SLOT_DIMENSIONS["sidebar-sticky"].height }} />
 });
 const InContentInlineAd = dynamic(() => import("../../../components/ad-unit").then((module) => module.InContentInlineAd), {
   ssr: false,
-  loading: () => <div className="w-full rounded-md bg-slate-100" style={{ minHeight: AD_SLOT_DIMENSIONS["in-content-inline"].height }} />
+  loading: () => <div className="w-full rounded-[1.5rem] bg-slate-100" style={{ minHeight: AD_SLOT_DIMENSIONS["in-content-inline"].height }} />
 });
 
 type ProgrammaticPageProps = { params: { category: string; "use-case": string } };
@@ -58,25 +58,34 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
   }
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8">
+    <main>
       <Schema row={row} siteUrl={siteUrl} />
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <section className="surface-glow border-b border-slate-200">
+        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 lg:py-20">
+          <div className="fade-up max-w-5xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-teal-700">{row.categoryName}</p>
+            <div className="mt-5">
+              <Byline context={`${row.pageType} report`} />
+            </div>
+            <h1 className="mt-7 font-editorial text-5xl font-semibold leading-[1] tracking-normal text-slate-950 sm:text-7xl">
+              {row.title}
+            </h1>
+          </div>
+        </div>
+      </section>
+      <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[minmax(0,1fr)_340px]">
         <article className="space-y-8">
-          <header className="space-y-5 border-b border-slate-200 bg-white p-6">
-            <p className="text-sm font-semibold uppercase tracking-wider text-teal-700">{row.categoryName}</p>
-            <Byline context={`${row.pageType} report`} />
-            <h1 className="text-4xl font-semibold tracking-normal text-slate-950 sm:text-5xl">{row.title}</h1>
-          </header>
           <QuickAnswer summary={row.summary} />
           <ComparisonTable row={row} />
           <Calculator config={row.calculatorConfig} />
           <HeaderBannerAd />
           <InContentInlineAd />
-          <Card className="bg-white">
+          <Card className="rounded-[1.5rem] border-slate-200 bg-white shadow-sm">
             <CardHeader>
-              <CardTitle>Reporter notes</CardTitle>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-teal-700">Notes</p>
+              <CardTitle className="text-3xl">What to check before you buy.</CardTitle>
             </CardHeader>
-            <CardContent className="grid gap-3 text-sm leading-7 text-slate-700">
+            <CardContent className="grid gap-4 text-base leading-8 text-slate-700">
               {row.faqs.map((item) => (
                 <p key={item}>{item}</p>
               ))}
@@ -86,13 +95,13 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
         </article>
         <aside className="space-y-5 lg:sticky lg:top-6 lg:self-start">
           <SidebarStickyAd />
-          <Card className="bg-white">
+          <Card className="rounded-[1.5rem] border-slate-200 bg-white shadow-sm">
             <CardHeader>
-              <CardTitle>Why this report exists</CardTitle>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-teal-700">Method</p>
+              <CardTitle>Buy on evidence.</CardTitle>
             </CardHeader>
-            <CardContent className="text-sm leading-6 text-slate-700">
-              Miles McQueen tracks software categories where buyers compare price, payback, setup risk, and operational fit before
-              requesting a demo.
+            <CardContent className="text-sm leading-7 text-slate-600">
+              Miles McQueen tracks price, setup risk, payback, and fit. The goal is not a longer list. It is a better first call.
             </CardContent>
           </Card>
         </aside>
