@@ -7,6 +7,10 @@ export type EditorialTake = {
   skipIf: string;
   gutCheck: string;
   checks: readonly [string, string, string];
+  bottomLine: readonly [string, string];
+  timeToValue: string;
+  whereBreaks: readonly [string, string, string];
+  realCost: readonly [string, string, string];
 };
 
 type EditorialBuilder = (row: DirectoryRow) => EditorialTake;
@@ -38,10 +42,61 @@ function thirdSignal(row: DirectoryRow): string {
   return row.comparisonRows[2].dimension;
 }
 
+function pilotWindow(row: DirectoryRow): string {
+  if (row.pageType === "calculator") {
+    return "three to seven working days";
+  }
+  if (row.pageType === "comparison") {
+    return "one to two weeks";
+  }
+  return "five to ten working days";
+}
+
+function implementationOwner(row: DirectoryRow): string {
+  if (row.categorySlug === "analytics") {
+    return "one engineer or analytics owner who can name events, check tracking, and say when the data is wrong";
+  }
+  if (row.categorySlug === "automation") {
+    return "one ops-minded builder who owns failures, retries, and messy edge cases";
+  }
+  if (row.categorySlug === "customer-support") {
+    return "one support lead who can replay real tickets and protect agent workflow";
+  }
+  if (row.categorySlug === "crm") {
+    return "one sales operator who can police fields, ownership, and follow-up rules";
+  }
+  if (row.categorySlug === "ai-tools") {
+    return "one editor-owner who can review output and kill bad drafts before they ship";
+  }
+  return "one accountable owner who can test real work and say no";
+}
+
+function buildAudit(row: DirectoryRow, bottomLine: readonly [string, string]): Pick<EditorialTake, "bottomLine" | "timeToValue" | "whereBreaks" | "realCost"> {
+  const [firstOption, secondOption] = row.optionLabels;
+  return {
+    bottomLine,
+    timeToValue: `For a competent team, budget ${pilotWindow(row)} for a narrow production-shaped pilot. That assumes ${implementationOwner(row)}; without that owner, the clock is fake and the trial becomes theater.`,
+    whereBreaks: [
+      `It breaks when the team has not defined ${firstSignal(row)} in plain English before the demo.`,
+      `It breaks when ${secondSignal(row)} depends on one person remembering to clean up bad inputs every Friday.`,
+      `No verified hard traffic, ticket, API, or event limit is stated in this page data. Make ${firstOption} and ${secondOption} show the relevant limit in writing before you sign.`
+    ],
+    realCost: [
+      `Implementation cost: one owner has to turn messy work into rules the tool can survive.`,
+      `Maintenance cost: someone must review drift, stale fields, failed runs, or bad data after launch.`,
+      `Sanity cost: if the team needs a meeting to trust the output, the sticker price is the small part.`
+    ]
+  };
+}
+
 const editorialBuilders: Record<string, EditorialBuilder> = {
   "ai-tools": (row) => {
     const [firstOption, secondOption, thirdOption] = row.optionLabels;
     const audience = audienceFor(row);
+    const audit = buildAudit(row, [
+      `${firstOption} is worth testing only if it cuts review time without flattening the team voice.`,
+      `If the tool creates more checking than drafting, you are buying technical debt with a friendly text box.`
+    ]);
     return {
       headline: `Most ${audience} should buy less AI than the demo suggests.`,
       verdict: `${moneyLine(row)} The mistake is chasing clever output. The win is getting work drafted, checked, and shipped without adding a new review burden.`,
@@ -52,12 +107,17 @@ const editorialBuilders: Record<string, EditorialBuilder> = {
         `Ask for a demo using your own source material, not their polished sample.`,
         `Make the vendor show the review path before the writing path.`,
         `Kill the trial if the team saves time but loses its voice.`
-      ]
+      ],
+      ...audit
     };
   },
   crm: (row) => {
     const [firstOption, secondOption, thirdOption] = row.optionLabels;
     const audience = audienceFor(row);
+    const audit = buildAudit(row, [
+      `${firstOption} is worth the debt if reps update it after real calls, not only during onboarding week.`,
+      `If the pipeline rules are still political, a CRM will hard-code the politics and charge you for it.`
+    ]);
     return {
       headline: `${audience} do not need a prettier contact database.`,
       verdict: `${moneyLine(row)} The right CRM is the one people update after a bad call, not the one with the longest settings page.`,
@@ -68,12 +128,17 @@ const editorialBuilders: Record<string, EditorialBuilder> = {
         `Import twenty real contacts and watch how fast the first mistake appears.`,
         `Ask the vendor to show a lost deal, not only a won deal.`,
         `Do not buy until follow-up ownership is painfully clear.`
-      ]
+      ],
+      ...audit
     };
   },
   analytics: (row) => {
     const [firstOption, secondOption, thirdOption] = row.optionLabels;
     const audience = audienceFor(row);
+    const audit = buildAudit(row, [
+      `${firstOption} is worth the debt if it changes a decision the team already makes every week.`,
+      `If your events are sloppy, the tool will not create truth; it will make the argument look more official.`
+    ]);
     return {
       headline: `${audience} should fix the question before buying the chart.`,
       verdict: `${moneyLine(row)} My bias is simple: if the team cannot name the decision this report will change, it is not analytics yet. It is decoration.`,
@@ -84,12 +149,17 @@ const editorialBuilders: Record<string, EditorialBuilder> = {
         `Pick one metric that changes a real decision this month.`,
         `Make the vendor explain what happens when tracking is wrong.`,
         `Walk away if the demo cannot show a plain answer in five minutes.`
-      ]
+      ],
+      ...audit
     };
   },
   automation: (row) => {
     const [firstOption, secondOption, thirdOption] = row.optionLabels;
     const audience = audienceFor(row);
+    const audit = buildAudit(row, [
+      `${firstOption} is worth testing only on a workflow that already has a clear owner and a visible failure path.`,
+      `If nobody owns retries, alerts, and cleanup, automation becomes a quiet production incident.`
+    ]);
     return {
       headline: `${audience} should automate the boring part, not the broken part.`,
       verdict: `${moneyLine(row)} Automation pays when the process is already clear. If the team still argues about who owns the handoff, software will not settle it.`,
@@ -100,12 +170,17 @@ const editorialBuilders: Record<string, EditorialBuilder> = {
         `Write the manual process on one page before the demo.`,
         `Ask what breaks when a step fails at 11 p.m.`,
         `Do not automate work nobody has agreed to own.`
-      ]
+      ],
+      ...audit
     };
   },
   "customer-support": (row) => {
     const [firstOption, secondOption, thirdOption] = row.optionLabels;
     const audience = audienceFor(row);
+    const audit = buildAudit(row, [
+      `${firstOption} is worth testing if agents trust it during ugly tickets, not just clean demo threads.`,
+      `If handoffs hide context or bots guess with confidence, you are buying churn in a nicer inbox.`
+    ]);
     return {
       headline: `${audience} should protect the queue before chasing features.`,
       verdict: `${moneyLine(row)} The best support tool is the one agents trust when the inbox is ugly. Everything else is brochure copy.`,
@@ -116,7 +191,8 @@ const editorialBuilders: Record<string, EditorialBuilder> = {
         `Replay ten bad tickets from last month inside the demo.`,
         `Ask how handoff notes survive a busy shift.`,
         `Do not buy if agents need a second screen to trust the first one.`
-      ]
+      ],
+      ...audit
     };
   }
 };
@@ -124,6 +200,10 @@ const editorialBuilders: Record<string, EditorialBuilder> = {
 function buildDefaultTake(row: DirectoryRow): EditorialTake {
   const [firstOption, secondOption, thirdOption] = row.optionLabels;
   const audience = audienceFor(row);
+  const audit = buildAudit(row, [
+    `${firstOption} is worth a trial only if it removes work people already agree is painful.`,
+    `If the team cannot name the owner, the workflow, and the failure path, the tool is debt with a login screen.`
+  ]);
   return {
     headline: `${audience} should buy for the next hard week, not the perfect quarter.`,
     verdict: `${moneyLine(row)} The smart move is to test the tool against work people already dislike doing.`,
@@ -134,7 +214,8 @@ function buildDefaultTake(row: DirectoryRow): EditorialTake {
       `Use real work in the demo.`,
       `Ask who owns the tool after launch.`,
       `Stop the trial if the setup feels like a second job.`
-    ]
+    ],
+    ...audit
   };
 }
 
