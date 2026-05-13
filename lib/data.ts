@@ -60,6 +60,10 @@ function pick(seed: readonly string[], index: number): string {
   return seed[index % seed.length] ?? seed[0] ?? "Tool";
 }
 
+function audienceFor(useSeed: UseSeed): string {
+  return useSeed.name.replace(/^CRM For /, "").replace(/^For /, "");
+}
+
 function titleFor(category: CategorySeed, useSeed: UseSeed, index: number): string {
   const angle = ["Shortlist", "ROI Guide", "Stack Review", "Buying Map", "Field Test"][index % 5] ?? "Guide";
   return `${category.name} ${useSeed.name}: ${angle} for 2026`;
@@ -69,7 +73,7 @@ function descriptionFor(category: CategorySeed, useSeed: UseSeed, index: number)
   const productA = pick(category.products, index);
   const productB = pick(category.products, index + 3);
   const saved = 7 + (index % 9) * 2;
-  const audience = useSeed.name.replace("For ", "").toLowerCase();
+  const audience = audienceFor(useSeed).toLowerCase();
   return `${audience} get a clear read on ${productA}, ${productB}, setup effort, cost fit, and a ${saved}-hour monthly payback case.`;
 }
 
@@ -80,7 +84,7 @@ function summaryFor(category: CategorySeed, useSeed: UseSeed, index: number): st
   const saved = 8 + ((index * 3) % 17);
   const lift = 11 + ((index * 5) % 19);
   const budget = 260 + ((index * 73) % 940);
-  return `The work is clear: ${useSeed.pain}. For ${useSeed.name.replace("For ", "")}, ${productA}, ${productB}, and ${productC} make the first cut. The test is ${useSeed.metric}. Expect about ${saved} hours back, a ${lift} percent operating lift, and a monthly budget near $${budget} before add-ons.`;
+  return `The work is clear: ${useSeed.pain}. For ${audienceFor(useSeed)}, ${productA}, ${productB}, and ${productC} make the first cut. The test is ${useSeed.metric}. Expect about ${saved} hours back, a ${lift} percent operating lift, and a monthly budget near $${budget} before add-ons.`;
 }
 
 function comparisonRowsFor(category: CategorySeed, useSeed: UseSeed, index: number): readonly [ComparisonRow, ComparisonRow, ComparisonRow] {
@@ -158,11 +162,26 @@ export function getStaticRows(): DirectoryRow[] {
 }
 
 export async function getRows(): Promise<DirectoryRow[]> {
+  if (process.env.NEXT_PHASE === "phase-production-build") {
+    return directoryRows;
+  }
+  if (process.env.NEXT_PUBLIC_DATA_SOURCE !== "supabase") {
+    return directoryRows;
+  }
   const supabase = getSupabaseServerClient();
   if (!supabase) {
     return directoryRows;
   }
-  const { data, error } = await supabase.from("directory_pages").select("*").order("category_slug").order("use_case_slug");
+  const result = await Promise.race([
+    supabase.from("directory_pages").select("*").order("category_slug").order("use_case_slug"),
+    new Promise<null>((resolve) => {
+      setTimeout(() => resolve(null), 2500);
+    })
+  ]);
+  if (!result) {
+    return directoryRows;
+  }
+  const { data, error } = result;
   if (error || !data) {
     return directoryRows;
   }

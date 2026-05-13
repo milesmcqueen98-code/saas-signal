@@ -8,6 +8,8 @@ export const revalidate = 86400;
 
 type CategoryPageProps = { params: { category: string } };
 
+const accentClasses = ["bg-teal-400", "bg-amber-400", "bg-rose-400", "bg-sky-400"] as const;
+
 export async function generateStaticParams() {
   const rows = await getRows();
   return getCategories(rows).map((category) => ({ category: category.slug }));
@@ -60,17 +62,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <Link
               key={row.id}
               href={row.canonicalPath}
-              className="premium-card group grid rounded-[1.5rem] border border-slate-200 bg-white p-5 md:grid-cols-[80px_1fr_auto] md:items-center md:p-6"
+              className="premium-card group grid overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white md:grid-cols-[8px_80px_1fr_auto] md:items-center"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">{String(index + 1).padStart(2, "0")}</p>
-              <div className="mt-4 md:mt-0">
+              <span className={`h-2 md:h-full ${accentClasses[index % accentClasses.length]}`} />
+              <p className="p-5 text-xs font-semibold uppercase tracking-[0.22em] text-slate-400 md:p-6">{String(index + 1).padStart(2, "0")}</p>
+              <div className="px-5 pb-5 md:px-0 md:py-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-teal-700">{row.pageType}</p>
                 <h2 className="mt-2 text-2xl font-semibold tracking-normal text-slate-950 transition group-hover:text-teal-700">
                   {row.useCaseName}
                 </h2>
                 <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">{row.description}</p>
               </div>
-              <span className="mt-4 text-sm font-semibold text-slate-950 transition group-hover:translate-x-1 group-hover:text-teal-700 md:mt-0">
+              <span className="px-5 pb-5 text-sm font-semibold text-slate-950 transition group-hover:translate-x-1 group-hover:text-teal-700 md:px-6 md:pb-0">
                 Open report
               </span>
             </Link>

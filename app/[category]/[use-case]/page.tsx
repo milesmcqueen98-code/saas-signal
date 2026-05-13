@@ -57,6 +57,12 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
     notFound();
   }
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const [firstOption, secondOption, thirdOption] = row.optionLabels;
+  const reportSignals = [
+    { label: "First look", value: firstOption, className: "bg-teal-100 text-teal-950" },
+    { label: "Counterpoint", value: secondOption, className: "bg-amber-100 text-amber-950" },
+    { label: "Lean test", value: thirdOption, className: "bg-rose-100 text-rose-950" }
+  ];
   return (
     <main>
       <Schema row={row} siteUrl={siteUrl} />
@@ -76,6 +82,14 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[minmax(0,1fr)_340px]">
         <article className="space-y-8">
           <QuickAnswer summary={row.summary} />
+          <section className="grid gap-3 md:grid-cols-3">
+            {reportSignals.map((item) => (
+              <div key={item.label} className={`rounded-[1.25rem] p-5 ${item.className}`}>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] opacity-70">{item.label}</p>
+                <p className="mt-3 text-2xl font-semibold tracking-normal">{item.value}</p>
+              </div>
+            ))}
+          </section>
           <ComparisonTable row={row} />
           <Calculator config={row.calculatorConfig} />
           <HeaderBannerAd />

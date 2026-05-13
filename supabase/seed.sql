@@ -41,11 +41,11 @@ select
   use_case_name,
   page_types[(i % 3) + 1],
   category_name || ' ' || use_case_name || ': ' || (array['Shortlist','ROI Guide','Stack Review','Buying Map','Field Test'])[(i % 5) + 1] || ' for 2026',
-  lower(replace(use_case_name, 'For ', '')) || ' get a clear read on ' || products[(i % 10) + 1] || ', ' || products[((i + 3) % 10) + 1] || ', setup effort, cost fit, and a ' || (7 + (i % 9) * 2)::text || '-hour monthly payback case.',
+  lower(replace(replace(use_case_name, 'CRM For ', ''), 'For ', '')) || ' get a clear read on ' || products[(i % 10) + 1] || ', ' || products[((i + 3) % 10) + 1] || ', setup effort, cost fit, and a ' || (7 + (i % 9) * 2)::text || '-hour monthly payback case.',
   case when category_slug = 'ai-tools' and use_case_slug = 'crm-for-real-estate-agents' then '/ai-tools/crm/for-real-estate-agents' else '/' || category_slug || '/' || use_case_slug end,
   category_name || ' Guide ' || use_case_name,
   'Compare practical ' || lower(category_name) || ' choices for ' || lower(use_case_name) || ' with benchmarks, tradeoffs, and a live calculator.',
-  'The work is clear: ' || pain || '. For ' || replace(use_case_name, 'For ', '') || ', ' || products[(i % 10) + 1] || ', ' || products[((i + 2) % 10) + 1] || ', and ' || products[((i + 5) % 10) + 1] || ' make the first cut. The test is ' || metric || '. Expect about ' || (8 + ((i * 3) % 17))::text || ' hours back, a ' || (11 + ((i * 5) % 19))::text || ' percent operating lift, and a monthly budget near $' || (260 + ((i * 73) % 940))::text || ' before add-ons.',
+  'The work is clear: ' || pain || '. For ' || replace(replace(use_case_name, 'CRM For ', ''), 'For ', '') || ', ' || products[(i % 10) + 1] || ', ' || products[((i + 2) % 10) + 1] || ', and ' || products[((i + 5) % 10) + 1] || ' make the first cut. The test is ' || metric || '. Expect about ' || (8 + ((i * 3) % 17))::text || ' hours back, a ' || (11 + ((i * 5) % 19))::text || ' percent operating lift, and a monthly budget near $' || (260 + ((i * 73) % 940))::text || ' before add-ons.',
   jsonb_build_array(products[(i % 10) + 1], products[((i + 2) % 10) + 1], products[((i + 5) % 10) + 1]),
   jsonb_build_array(
     jsonb_build_object('dimension', fields[(i % 5) + 1], 'optionA', products[(i % 10) + 1] || ' fits teams needing ' || verbs[(i % 5) + 1] || ' support with ' || (12 + (i % 8))::text || ' tracked steps.', 'optionB', products[((i + 2) % 10) + 1] || ' works best when ' || metric || ' is reviewed weekly across ' || (3 + (i % 4))::text || ' roles.', 'optionC', products[((i + 5) % 10) + 1] || ' is strongest for lean rollout with a ' || (5 + (i % 6))::text || ' day setup window.'),

@@ -12,6 +12,8 @@ SaaS Signal is a Next.js 14 App Router publication and directory for B2B SaaS an
 
 If Supabase credentials are absent, the app uses the bundled typed dataset so build and local preview still work.
 
+Set `NEXT_PUBLIC_DATA_SOURCE=supabase` only after running the latest `supabase/seed.sql`. Leave it as `bundled` for the polished built-in dataset.
+
 ## Supabase provisioning
 
 1. Create a Supabase project.

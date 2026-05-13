@@ -6,8 +6,14 @@ export const revalidate = 86400;
 
 const proofPoints = [
   { label: "Reports", value: "100" },
-  { label: "Software desks", value: "5" },
-  { label: "Sponsor slots", value: "3" }
+  { label: "Desks", value: "5" },
+  { label: "Buyer math", value: "Live" }
+];
+
+const decisionSignals = [
+  { label: "Cost", value: "What it really takes", color: "bg-amber-400" },
+  { label: "Fit", value: "Where it belongs", color: "bg-teal-400" },
+  { label: "Risk", value: "What can break", color: "bg-rose-400" }
 ];
 
 export default async function HomePage() {
@@ -17,52 +23,58 @@ export default async function HomePage() {
   return (
     <main>
       <section className="surface-glow overflow-hidden border-b border-slate-200">
-        <div className="mx-auto grid min-h-[720px] max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[minmax(0,1.1fr)_420px] lg:items-center lg:py-24">
+        <div className="mx-auto grid min-h-[760px] max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:py-24">
           <div className="fade-up max-w-5xl space-y-8">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-teal-700">SaaS Signal / Miles McQueen</p>
-            <h1 className="font-editorial max-w-5xl text-6xl font-semibold leading-[0.95] tracking-normal text-slate-950 sm:text-7xl lg:text-8xl">
-              Choose software with a colder eye.
+            <h1 className="text-balance font-editorial max-w-5xl text-6xl font-semibold leading-[0.92] tracking-normal text-slate-950 sm:text-7xl lg:text-8xl">
+              Buy the right tool. Skip the expensive mistake.
             </h1>
             <p className="max-w-2xl text-xl leading-9 text-slate-600">
-              No vendor fog. No bloated grids. Just sharp reports, clean math, and the few facts that change a buying decision.
+              Sharp software reports for teams that need a decision, not another tab.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/analytics"
                 className="inline-flex h-12 items-center justify-center rounded-full bg-slate-950 px-6 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-teal-700 active:translate-y-0"
               >
-                Read the reports
+                Start reading
               </Link>
               <Link
                 href="/advertise"
-                className="inline-flex h-12 items-center justify-center rounded-full border border-slate-300 bg-white px-6 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:border-teal-500 hover:text-teal-700 active:translate-y-0"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-rose-200 bg-rose-50 px-6 text-sm font-semibold text-rose-700 transition hover:-translate-y-0.5 hover:border-rose-500 hover:bg-white active:translate-y-0"
               >
-                Sponsor the desk
+                Reach buyers
               </Link>
             </div>
             <Byline context="Publisher and software correspondent" />
           </div>
-          <div className="fade-up-delay rounded-[2rem] border border-slate-200 bg-white/85 p-6 shadow-2xl shadow-slate-950/10 backdrop-blur">
-            <div className="grid grid-cols-3 gap-3">
-              {proofPoints.map((item) => (
-                <div key={item.label} className="rounded-2xl bg-slate-950 p-4 text-white">
-                  <p className="text-3xl font-semibold tracking-normal">{item.value}</p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-300">{item.label}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-teal-700">Live inventory</p>
-              <h2 className="text-3xl font-semibold leading-tight tracking-normal text-slate-950">Direct SaaS placements. Sold cleanly.</h2>
-              <p className="leading-7 text-slate-600">
-                Sponsor slots sit beside intent: comparison tables, payback calculators, and category reports.
-              </p>
-              <Link
-                href="/advertise"
-                className="inline-flex text-sm font-semibold text-teal-700 transition hover:text-slate-950"
-              >
-                View rates
-              </Link>
+          <div className="fade-up-delay overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl shadow-slate-950/10">
+            <div className="color-stripe h-2" />
+            <div className="p-6">
+              <div className="grid grid-cols-3 gap-3">
+                {proofPoints.map((item) => (
+                  <div key={item.label} className="rounded-2xl bg-slate-950 p-4 text-white">
+                    <p className="text-3xl font-semibold tracking-normal">{item.value}</p>
+                    <p className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-300">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-7 space-y-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-teal-700">Decision stack</p>
+                {decisionSignals.map((item) => (
+                  <div key={item.label} className="flex items-center gap-4 rounded-2xl border border-slate-200 p-4">
+                    <span className={`h-10 w-2 rounded-full ${item.color}`} />
+                    <div>
+                      <p className="font-semibold text-slate-950">{item.label}</p>
+                      <p className="text-sm text-slate-500">{item.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-7 rounded-2xl bg-teal-50 p-5">
+                <p className="text-sm font-semibold text-teal-900">Sponsor slots sit beside intent.</p>
+                <p className="mt-2 text-sm leading-6 text-teal-800">Reports, calculators, tables. Places where buyers slow down.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -70,10 +82,10 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-teal-700">Coverage</p>
-          <h2 className="mt-4 font-editorial text-5xl font-semibold leading-tight tracking-normal text-slate-950">
-            Five desks. One question.
+          <h2 className="mt-4 text-balance font-editorial text-5xl font-semibold leading-tight tracking-normal text-slate-950">
+            A better first call.
           </h2>
-          <p className="mt-4 text-lg leading-8 text-slate-600">Will this tool pay back before it becomes another subscription?</p>
+          <p className="mt-4 text-lg leading-8 text-slate-600">Each desk removes noise before the demo starts.</p>
         </div>
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
           {categories.map((category, index) => (
@@ -99,7 +111,9 @@ export default async function HomePage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-teal-700">Latest</p>
-              <h2 className="mt-4 font-editorial text-5xl font-semibold leading-tight tracking-normal text-slate-950">Reports worth opening.</h2>
+              <h2 className="mt-4 text-balance font-editorial text-5xl font-semibold leading-tight tracking-normal text-slate-950">
+                Reports worth opening.
+              </h2>
             </div>
             <Link href="/ai-tools" className="text-sm font-semibold text-teal-700 transition hover:text-slate-950">
               Browse all
