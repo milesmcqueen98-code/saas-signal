@@ -71,3 +71,14 @@ The site includes About, Contact, Advertise, Privacy, and Terms pages. Update `N
 ## Dataset updates
 
 The dataset source lives in `lib/data.ts`, and the SQL seed mirrors the same category and use-case matrix. Add categories or use cases there, then run `pnpm build`; the prebuild script validates row count, quick-answer length, comparison row count, and calculator formula discriminants.
+
+## Quality checks
+
+Run these before shipping changes:
+
+```bash
+pnpm test
+pnpm typecheck
+pnpm lint
+pnpm build
+```

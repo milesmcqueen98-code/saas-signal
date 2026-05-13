@@ -25,6 +25,10 @@ html {
   scroll-behavior: smooth;
 }
 
+#content {
+  scroll-margin-top: 6rem;
+}
+
 * {
   border-color: hsl(var(--border));
 }
@@ -82,6 +86,30 @@ body {
 
 .text-balance {
   text-wrap: balance;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 50;
+  transform: translateY(-150%);
+  border-radius: 9999px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+:where(a, button, input, [tabindex]):focus-visible {
+  outline: 3px solid #14b8a6;
+  outline-offset: 3px;
 }
 
 @keyframes fade-up {

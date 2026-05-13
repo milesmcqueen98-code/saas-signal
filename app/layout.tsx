@@ -21,8 +21,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className="min-h-screen bg-stone-50 text-slate-950 antialiased">
+        <a href="#content" className="skip-link">
+          Skip to content
+        </a>
         <Navbar />
-        {children}
+        <div id="content" tabIndex={-1}>
+          {children}
+        </div>
         <Footer />
         <Analytics />
       </body>

@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
+    "test": "tsx --test tests/**/*.test.ts",
     "typecheck": "tsc --noEmit",
     "submit:indexnow": "tsx scripts/submit-indexnow.ts"
   },

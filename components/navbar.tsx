@@ -6,7 +6,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur-xl">
       <div className="color-stripe h-1" />
-      <nav className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+      <nav aria-label="Primary navigation" className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-wrap items-center gap-4">
           <Link href="/" className="text-xl font-semibold tracking-normal text-slate-950 transition hover:text-teal-700">
             SaaS Signal

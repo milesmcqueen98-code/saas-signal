@@ -8,7 +8,7 @@ export function Footer() {
           <p className="font-semibold text-slate-950">SaaS Signal</p>
           <p>Reports, tables, and payback checks by Miles McQueen.</p>
         </div>
-        <div className="flex flex-wrap gap-4">
+        <nav aria-label="Footer navigation" className="flex flex-wrap gap-4">
           <Link href="/about" className="hover:text-slate-950">
             About
           </Link>
@@ -27,7 +27,7 @@ export function Footer() {
           <Link href="/terms" className="hover:text-slate-950">
             Terms
           </Link>
-        </div>
+        </nav>
       </div>
     </footer>
   );
