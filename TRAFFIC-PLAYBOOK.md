@@ -8,23 +8,23 @@ Win search demand where buyers are already comparing software for a specific job
 
 ## First 24 Hours
 
-1. Submit `https://saas-signal.vercel.app/sitemap.xml` in Google Search Console.
+1. Submit `https://saassignalreport.com/sitemap.xml` in Google Search Console.
 2. Submit the same sitemap in Bing Webmaster Tools.
 3. After Vercel finishes deploying the latest commit, run:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://saas-signal.vercel.app pnpm submit:indexnow
+NEXT_PUBLIC_SITE_URL=https://saassignalreport.com pnpm submit:indexnow
 ```
 
 4. Inspect these URLs manually in Google Search Console:
 
 ```text
-https://saas-signal.vercel.app/
-https://saas-signal.vercel.app/ai-tools
-https://saas-signal.vercel.app/crm
-https://saas-signal.vercel.app/analytics
-https://saas-signal.vercel.app/automation
-https://saas-signal.vercel.app/customer-support
+https://saassignalreport.com/
+https://saassignalreport.com/ai-tools
+https://saassignalreport.com/crm
+https://saassignalreport.com/analytics
+https://saassignalreport.com/automation
+https://saassignalreport.com/customer-support
 ```
 
 5. Post one LinkedIn note from a real buying angle:
@@ -40,7 +40,7 @@ price, setup risk, payback, and who should skip the tool.
 
 First desk: analytics software for teams that need answers, not another dashboard.
 
-https://saas-signal.vercel.app/analytics
+https://saassignalreport.com/analytics
 
 Miles McQueen
 ```

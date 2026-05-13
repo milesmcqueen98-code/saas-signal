@@ -11,6 +11,7 @@ import { Schema } from "../../../components/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card";
 import { AD_SLOT_DIMENSIONS } from "../../../lib/ads";
 import { getRow, getRows } from "../../../lib/data";
+import { getSiteUrl } from "../../../lib/site";
 
 export const revalidate = 86400;
 
@@ -58,7 +59,7 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
   if (!row) {
     notFound();
   }
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const siteUrl = getSiteUrl();
   const [firstOption, secondOption, thirdOption] = row.optionLabels;
   const reportSignals = [
     { label: "First look", value: firstOption, className: "bg-teal-100 text-teal-950" },

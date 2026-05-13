@@ -1,8 +1,8 @@
 import { getCategories, getStaticRows } from "../lib/data";
+import { getSiteUrl } from "../lib/site";
 import { getPriorityUrls } from "../lib/traffic";
 
-const fallbackSiteUrl = "https://saas-signal.vercel.app";
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? fallbackSiteUrl).replace(/\/$/, "");
+const siteUrl = getSiteUrl();
 const key = process.env.INDEXNOW_KEY ?? "saas-signal-2026-indexnow-key";
 const keyLocation = `${siteUrl}/${key}.txt`;
 const host = new URL(siteUrl).host;

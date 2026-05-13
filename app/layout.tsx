@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
+import { getSiteUrl } from "../lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(getSiteUrl()),
   title: "SaaS Signal",
   description: "Independent software reporting, comparison tables, and buyer calculators from Miles McQueen.",
   alternates: {

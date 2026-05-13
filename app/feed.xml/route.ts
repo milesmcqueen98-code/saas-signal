@@ -1,4 +1,5 @@
 import { getRows } from "../../lib/data";
+import { getSiteUrl } from "../../lib/site";
 
 export const revalidate = 86400;
 
@@ -12,7 +13,7 @@ function escapeXml(value: string): string {
 }
 
 export async function GET() {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+  const siteUrl = getSiteUrl();
   const rows = await getRows();
   const buildDate = new Date().toUTCString();
   const items = rows

@@ -44,7 +44,7 @@ SaaS Signal now ships with:
 After every production deploy, run:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://saas-signal.vercel.app pnpm submit:indexnow
+NEXT_PUBLIC_SITE_URL=https://saassignalreport.com pnpm submit:indexnow
 ```
 
 ## Direct sponsorship setup

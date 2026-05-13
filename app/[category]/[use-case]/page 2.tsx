@@ -8,6 +8,7 @@ import { Schema } from "../../../components/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card";
 import { AD_SLOT_DIMENSIONS } from "../../../lib/ads";
 import { getRow, getRows } from "../../../lib/data";
+import { getSiteUrl } from "../../../lib/site";
 
 export const revalidate = 86400;
 
@@ -35,6 +36,6 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
   if (!row) {
     notFound();
   }
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const siteUrl = getSiteUrl();
   return <main className="mx-auto max-w-6xl px-4 py-8"><Schema row={row} siteUrl={siteUrl} /><div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]"><article className="space-y-8"><header className="space-y-5"><p className="text-sm font-semibold uppercase tracking-wider text-teal-700">{row.categoryName}</p><h1 className="text-4xl font-semibold tracking-normal text-slate-950 sm:text-5xl">{row.title}</h1></header><QuickAnswer summary={row.summary} /><HeaderBannerAd /><ComparisonTable row={row} /><InContentInlineAd /><Calculator config={row.calculatorConfig} /><Card><CardHeader><CardTitle>Decision notes</CardTitle></CardHeader><CardContent className="grid gap-3 text-sm leading-7 text-slate-700">{row.faqs.map((item) => <p key={item}>{item}</p>)}</CardContent></Card></article><aside className="space-y-5 lg:sticky lg:top-6 lg:self-start"><SidebarStickyAd /><Card><CardHeader><CardTitle>Page type</CardTitle></CardHeader><CardContent className="text-sm capitalize text-slate-700">{row.pageType}</CardContent></Card></aside></div></main>;
 }
