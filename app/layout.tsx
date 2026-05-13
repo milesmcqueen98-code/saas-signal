@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "../components/footer";
 import { Navbar } from "../components/navbar";
 import { getSiteUrl } from "../lib/site";
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Navbar />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
