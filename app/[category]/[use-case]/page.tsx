@@ -6,6 +6,7 @@ import { Calculator } from "../../../components/calculator";
 import { ComparisonTable } from "../../../components/comparison-table";
 import { EditorialDisclosure } from "../../../components/editorial-disclosure";
 import { QuickAnswer } from "../../../components/quick-answer";
+import { RelatedReports } from "../../../components/related-reports";
 import { Schema } from "../../../components/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card";
 import { AD_SLOT_DIMENSIONS } from "../../../lib/ads";
@@ -52,7 +53,8 @@ export async function generateMetadata({ params }: ProgrammaticPageProps): Promi
 }
 
 export default async function ProgrammaticPage({ params }: ProgrammaticPageProps) {
-  const row = await getRow(params.category, params["use-case"]);
+  const rows = await getRows();
+  const row = rows.find((item) => item.categorySlug === params.category && item.useCaseSlug === params["use-case"]) ?? null;
   if (!row) {
     notFound();
   }
@@ -106,6 +108,7 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
             </CardContent>
           </Card>
           <EditorialDisclosure />
+          <RelatedReports currentRow={row} rows={rows} />
         </article>
         <aside className="space-y-5 lg:sticky lg:top-6 lg:self-start">
           <SidebarStickyAd />

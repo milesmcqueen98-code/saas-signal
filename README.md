@@ -30,6 +30,23 @@ Set `NEXT_PUBLIC_DATA_SOURCE=supabase` only after running the latest `supabase/s
 4. Deploy to production.
 5. Add the production domain to Google Search Console and submit `/sitemap.xml`.
 
+## Traffic launch
+
+SaaS Signal now ships with:
+
+- `/sitemap.xml` for search discovery.
+- `/feed.xml` for RSS readers, syndication, and monitoring tools.
+- A public IndexNow key at `/saas-signal-2026-indexnow-key.txt`.
+- `pnpm submit:indexnow` to notify Bing after publishing.
+- Related-report links on every programmatic page.
+- `TRAFFIC-PLAYBOOK.md` with the 24-hour launch steps, weekly publishing rhythm, and outreach scripts.
+
+After every production deploy, run:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://saas-signal.vercel.app pnpm submit:indexnow
+```
+
 ## Direct sponsorship setup
 
 This project does not use AdSense. It is wired for direct SaaS sponsorships and affiliate-ready placements that can go live as soon as an advertiser pays and supplies an approved URL.

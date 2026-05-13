@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "submit:indexnow": "tsx scripts/submit-indexnow.ts"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.0",

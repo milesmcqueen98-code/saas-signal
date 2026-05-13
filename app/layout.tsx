@@ -6,7 +6,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "SaaS Signal",
-  description: "Independent software reporting, comparison tables, and buyer calculators from Miles McQueen."
+  description: "Independent software reporting, comparison tables, and buyer calculators from Miles McQueen.",
+  alternates: {
+    canonical: "/",
+    types: {
+      "application/rss+xml": "/feed.xml"
+    }
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

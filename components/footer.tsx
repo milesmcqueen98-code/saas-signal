@@ -18,6 +18,9 @@ export function Footer() {
           <Link href="/advertise" className="hover:text-slate-950">
             Advertise
           </Link>
+          <Link href="/feed.xml" className="hover:text-slate-950">
+            Feed
+          </Link>
           <Link href="/privacy" className="hover:text-slate-950">
             Privacy
           </Link>
