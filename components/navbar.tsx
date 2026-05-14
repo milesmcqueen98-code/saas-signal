@@ -20,6 +20,9 @@ export function Navbar() {
               {category.name}
             </Link>
           ))}
+          <Link href="/about" className="transition hover:text-slate-950">
+            About
+          </Link>
           <Link href="/advertise" className="rounded-full bg-rose-600 px-4 py-2 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-slate-950">
             Advertise
           </Link>

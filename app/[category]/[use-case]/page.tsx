@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
+import { AboutMe } from "../../../components/about-me";
 import { Byline } from "../../../components/byline";
 import { Calculator } from "../../../components/calculator";
 import { ComparisonTable } from "../../../components/comparison-table";
@@ -124,6 +125,7 @@ export default async function ProgrammaticPage({ params }: ProgrammaticPageProps
               Miles McQueen writes these pages like a buyer, not a vendor. Price matters. Setup risk matters. A tool that nobody opens after week two is not a win.
             </CardContent>
           </Card>
+          <AboutMe variant="compact" />
         </aside>
       </div>
     </main>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AboutMe } from "../components/about-me";
 import { Byline } from "../components/byline";
 import { getCategories, getRows } from "../lib/data";
 
@@ -79,6 +80,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      <AboutMe />
       <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-teal-700">Coverage</p>
